@@ -1,4 +1,5 @@
 pipeline {
+    agent any
 
     environment {
             API_SERVER_PEM_KEY = credentials('mt-dp-pem')
@@ -7,6 +8,10 @@ pipeline {
 
     tools {
         gradle '7.6.1'
+    }
+
+    triggers {
+        scm('*/main')
     }
 
     stages {
