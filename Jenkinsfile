@@ -5,7 +5,7 @@ pipeline {
             API_SERVER_PEM_KEY = credentials('mt-dp-pem')
             API_REMOTE_SERVER_IP = '54.180.116.61'
             DEPLOY_FILE = credentials('mt-dp-deploy')
-            API_SERVER_IP_LIST = credentials('SERVER_IP_LIST')
+            API_SERVER_IP_LIST = ("54.180.116.61","54.180.97.9")
     }
 
     tools {
