@@ -10,10 +10,6 @@ pipeline {
         gradle '7.6.1'
     }
 
-    triggers {
-        scm('*/main')
-    }
-
     stages {
         stage('Checkout') {
             steps {
