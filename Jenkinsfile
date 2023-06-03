@@ -40,6 +40,7 @@ pipeline {
                                     for (int i=0; i < addresses.size(); i++) {
                                         echo "start ${addresses[i]} deploy"
                                         sh "scp -o StrictHostKeyChecking=no -i ${API_SERVER_PEM_KEY} multi-server-dp-0.0.1-SNAPSHOT.jar ubuntu@${addresses[i]}:/home/ubuntu"
+                                        sh "ssh -o StrictHostKeyChecking=no -i ${API_SERVER_PEM_KEY} ubuntu@${addresses[i]} sudo rm /home/ubuntu/deploy.sh"
                                         sh "scp -o StrictHostKeyChecking=no -i ${API_SERVER_PEM_KEY} ${DEPLOY_FILE} ubuntu@${addresses[i]}:/home/ubuntu"
                                         sh "ssh -o StrictHostKeyChecking=no -i ${API_SERVER_PEM_KEY} ubuntu@${addresses[i]} chmod +x /home/ubuntu/deploy.sh"
                                         sh "ssh -o StrictHostKeyChecking=no -i ${API_SERVER_PEM_KEY} ubuntu@${addresses[i]} /home/ubuntu/deploy.sh &"
