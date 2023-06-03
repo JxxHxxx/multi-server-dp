@@ -35,9 +35,8 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'mt-dp-pem', keyFileVariable: 'PEM_KEY')]) {
                     dir('/var/lib/jenkins/workspace/multi-server-dp-practice/build/libs') {
                         sh "scp -o StrictHostKeyChecking=no -i $PEM_KEY multi-server-dp-0.0.1-SNAPSHOT.jar ubuntu@$API_REMOTE_SERVER_IP:/home/ubuntu"
-                        sh "ssh -o StrictHostKeyChecking=no -i $PEM_KEY ubuntu@$API_REMOTE_SERVER_IP pkill -f multi-server-dp-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &"
-                        sh "sleep 20s"
-                        sh "ssh -o StrictHostKeyChecking=no -i $PEM_KEY ubuntu@$API_REMOTE_SERVER_IP nohup java -jar /home/ubuntu/multi-server-dp-0.0.1-SNAPSHOT.jar &"
+                        sh "ssh -o StrictHostKeyChecking=no -i $PEM_KEY ubuntu@$API_REMOTE_SERVER_IP chmod +x deploy.sh"
+                        sh "ssh -o StrictHostKeyChecking=no -i $PEM_KEY ubuntu@$API_REMOTE_SERVER_IP ./deploy.sh"
                     }
                 }
             }
