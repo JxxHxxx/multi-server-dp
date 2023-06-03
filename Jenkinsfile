@@ -4,6 +4,7 @@ pipeline {
     environment {
             API_SERVER_PEM_KEY = credentials('mt-dp-pem')
             API_REMOTE_SERVER_IP = '54.180.116.61'
+            DEPLOY_FILE = credentials('mt-dp-deploy')
     }
 
     tools {
@@ -35,6 +36,8 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'mt-dp-pem', keyFileVariable: 'PEM_KEY')]) {
                     dir('/var/lib/jenkins/workspace/multi-server-dp-practice/build/libs') {
                         sh 'scp -o StrictHostKeyChecking=no -i ${PEM_KEY} multi-server-dp-0.0.1-SNAPSHOT.jar ubuntu@${API_REMOTE_SERVER_IP}:/home/ubuntu'
+                        sh 'scp -o StrictHostKeyChecking=no -i ${PEM_KEY} ${DEPLOY_FILE} ubuntu@${API_REMOTE_SERVER_IP}:/home/ubuntu'
+
                         sh 'ssh -o StrictHostKeyChecking=no -i ${PEM_KEY} ubuntu@${API_REMOTE_SERVER_IP} chmod +x /home/ubuntu/deploy.sh'
                         sh 'ssh -o StrictHostKeyChecking=no -i ${PEM_KEY} ubuntu@${API_REMOTE_SERVER_IP} /home/ubuntu/deploy.sh &'
                     }
