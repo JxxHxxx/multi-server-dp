@@ -2,7 +2,7 @@ pipeline {
 
     environment {
             API_SERVER_PEM_KEY = credentials('mt-dp-pem')
-            API_REMOTE_SERVER_IP = 54.180.116.61
+            API_REMOTE_SERVER_IP = '54.180.116.61'
     }
 
     tools {
