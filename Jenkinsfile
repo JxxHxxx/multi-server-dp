@@ -33,7 +33,7 @@ pipeline {
         stage('Deploy') {
                     steps {
                         script {
-                            def addresses = ['54.180.116.61', '54.180.97.9']
+                            def addresses = ['3.39.2.83', '43.201.187.19']
 
                                 dir('/var/lib/jenkins/workspace/multi-server-dp-practice/build/libs') {
 
